@@ -1,0 +1,24 @@
+server:
+  port: 9070
+
+eureka:
+  instance:
+    hostname: localhost
+    port: 9090
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+  server:
+    wait-time-in-ms-when-sync-empty: 3000
+
+zuul:
+  routes:
+    product:
+      path: /services/agua/**
+      url: http://localhost:9092/agua/enabled/all
+    customer:
+      path: /services/botijao/**
+      url: http://localhost:9091/cliente/active/all
+
